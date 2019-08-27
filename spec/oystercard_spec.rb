@@ -21,4 +21,26 @@ describe Oystercard do
       expect{ subject.deduct(5) }.to change{ subject.balance }.by -5
     end
   end
+
+  describe '#in_journey?' do
+    it "expects not to be in journey" do
+      expect(subject).not_to be_in_journey
+    end
+  end
+
+  describe '#touch_in' do
+    it "expects boolean variable journey to change from false to true" do
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+  end
+
+  describe '#touch_out' do
+    it "expects boolean variable journey to change from true to false" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
+
 end
