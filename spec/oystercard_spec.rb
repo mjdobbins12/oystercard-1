@@ -7,7 +7,7 @@ describe Oystercard do
 
   describe '#top_up' do
     it 'tops up the balance with 5 ' do
-      expect{ subject.top_up 5 }. to change{ subject.balance }.by 5
+      expect{ subject.top_up 5 }.to change{ subject.balance }.by 5
     end
 
     it "expects to throw an exception if topup amount + balance exceeds limit" do
@@ -15,6 +15,10 @@ describe Oystercard do
     end
   end
 
-
-
+  describe '#deduct'do
+    it "deducts the argument entered from the balance" do
+      subject.top_up(60)
+      expect{ subject.deduct(5) }.to change{ subject.balance }.by -5
+    end
   end
+end
