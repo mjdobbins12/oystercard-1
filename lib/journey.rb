@@ -6,6 +6,7 @@ class Journey
 
   def start_of_journey(station)
     if @entry_station # Failing to touch out
+      @entry_station = station
       return 6
     else
       @entry_station = station
