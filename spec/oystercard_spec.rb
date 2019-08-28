@@ -30,13 +30,19 @@ describe Oystercard do
 
   describe '#touch_in' do
     it "expects boolean variable journey to change from false to true" do
+      subject.top_up(17)
       subject.touch_in
       expect(subject).to be_in_journey
+    end
+
+    it "requires a minimum balance" do
+      expect{ subject.touch_in }.to raise_error("Insufficient funds")
     end
   end
 
   describe '#touch_out' do
     it "expects boolean variable journey to change from true to false" do
+      subject.top_up(17)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
