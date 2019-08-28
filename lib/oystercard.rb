@@ -6,6 +6,7 @@ class Oystercard
   def initialize
     @balance = 0
     @station = nil
+    @history = []
   end
 
   def top_up(money)
@@ -22,13 +23,17 @@ class Oystercard
     @station = station
   end
 
-  def touch_out
+  def touch_out(station)
     deduct(MINIMUM)
+    history << {entry_station: @station, exit_station: station}
     @station = nil
+
   end
 
   attr_reader :balance
   attr_reader :station
+  attr_reader :history
+
 
   private
 

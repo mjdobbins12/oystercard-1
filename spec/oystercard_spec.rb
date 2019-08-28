@@ -2,8 +2,18 @@ require 'oystercard'
 
 describe Oystercard do
   let(:shoreditch) { double :station }
-  it 'expects the oystercard to initialize with a balance of 0' do
-    expect(subject.balance).to eq 0
+  let(:clapham) { double :station}
+
+  describe "#initialize" do
+
+    it 'expects the oystercard to initialize with a balance of 0' do
+      expect(subject.balance).to eq 0
+    end
+
+    it 'expects the oystercard to initialize with a history of []' do
+      expect(subject.history).to be_empty
+    end
+
   end
 
   describe '#top_up' do
@@ -51,16 +61,21 @@ describe Oystercard do
       end
 
       it "expects boolean variable journey to change from true to false" do
-        subject.touch_out
+        subject.touch_out(clapham)
         expect(subject).not_to be_in_journey
       end
 
       it 'expects the balance to reduce by the minimum fare every time the user touches out' do
-        expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
+        expect{ subject.touch_out(clapham) }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
       end
 
       it "forgets the entry station upon touching out" do
-        expect{ subject.touch_out }.to change{ subject.station }.from(shoreditch).to(nil)
+        expect{ subject.touch_out(clapham) }.to change{ subject.station }.from(shoreditch).to(nil)
+      end
+
+      it 'expect touch_out to add the argument to the hash as a value for the "exit station key"' do
+        subject.touch_out(clapham)
+        expect(subject.history[-1]).to include(entry_station: shoreditch, exit_station: clapham)
       end
     end
   end
