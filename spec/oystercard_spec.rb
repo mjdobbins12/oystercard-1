@@ -15,13 +15,6 @@ describe Oystercard do
     end
   end
 
-  describe '#deduct'do
-    it "deducts the argument entered from the balance" do
-      subject.top_up(60)
-      expect{ subject.deduct(5) }.to change{ subject.balance }.by -5
-    end
-  end
-
   describe '#in_journey?' do
     it "expects not to be in journey" do
       expect(subject).not_to be_in_journey
@@ -46,6 +39,13 @@ describe Oystercard do
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+    end
+
+    it 'expects the balance to reduce by the minimum fare every time the user touches out' do
+      subject.top_up(17)
+      subject.touch_in
+      expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
+      
     end
   end
 
