@@ -2,7 +2,7 @@ require_relative './journey'
 require_relative './journey_log'
 
 class Oystercard
-  attr_reader :balance, :history, :journey_log
+  attr_reader :balance, :journey_log
 
   LIMIT = 90
   MINIMUM = 1

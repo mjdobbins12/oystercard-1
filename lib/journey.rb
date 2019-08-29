@@ -1,3 +1,5 @@
+require_relative './station'
+
 class Journey
 
 PENALTY_FARE = 6
