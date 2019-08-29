@@ -1,26 +1,21 @@
 class Journey
 
-  def initialize
-    @entry_station = nil
+PENALTY_FARE = 6
+MINIMUM_FARE = 1
+
+attr_reader :entry_station
+attr_reader :exit_station
+
+  def initialize(station = nil)
+    @entry_station = station
   end
 
-  def start_of_journey(station)
-    if @entry_station # Failing to touch out
-      @entry_station = station
-      return 6
-    else
-      @entry_station = station
-      return 0
-    end
+  def end_journey(station)
+    @exit_station = station
   end
 
-  def end_of_journey(station)
-    if !@entry_station # Failing to touch in
-      return 6
-    else
-        @entry_station = nil
-      return 1
-    end
+  def fare
+    @entry_station == nil || @exit_station == nil ? PENALTY_FARE : MINIMUM_FARE
   end
 
 end
