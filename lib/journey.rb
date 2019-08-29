@@ -16,6 +16,8 @@ def fare
   @entry_station.name == nil || @exit_station.name == nil ? PENALTY_FARE : fare_calculator
 end
 
+private
+
 def fare_calculator
   (@entry_station.zone - @exit_station.zone).abs + 1
 end

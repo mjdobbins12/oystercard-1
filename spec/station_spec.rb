@@ -5,4 +5,7 @@ describe Station do
   it "initializes with a name" do
     expect(station.name).to_not be(nil)
   end
+  it "initializes with a zone" do
+    expect(station.zone).to_not be(nil)
+  end
 end
