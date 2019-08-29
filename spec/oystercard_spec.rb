@@ -10,10 +10,6 @@ describe Oystercard do
       expect(subject.balance).to eq 0
     end
 
-    it 'expects the oystercard to initialize with a history of []' do
-      expect(subject.history).to be_empty
-    end
-
   end
 
   describe '#top_up' do
@@ -46,14 +42,10 @@ describe Oystercard do
         subject.touch_in(shoreditch)
       end
 
-      it 'expects the balance to reduce by the minimum fare every time the user touches out' do
+      it 'expects the balance to reduce by the calculated fare on touch out' do
         expect{ subject.touch_out(clapham) }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
       end
 
-      it 'expect touch_out to add the argument to the hash as a value for the "exit station key"' do
-        subject.touch_out(clapham)
-        expect(subject.history[-1]).to include(entry_station: shoreditch, exit_station: clapham)
-      end
     end
   end
 

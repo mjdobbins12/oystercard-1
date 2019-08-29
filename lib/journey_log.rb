@@ -1,28 +1,29 @@
 class JourneyLog
 
   attr_reader :log
+  attr_accessor :current_journey
 
   def initialize
     @log = []
   end
 
   def start(entry_station)
-    @journey = Journey.new(entry_station)
+    @current_journey = Journey.new
+    @current_journey.entry_station = entry_station
   end
 
   def finish(exit_station)
-    @journey.exit_station = exit_station
     current_journey
+    @current_journey.exit_station = exit_station
+    @log << {entry_station: @current_journey.entry_station, exit_station: @current_journey.exit_station}
   end
 
   def journeys
-    @log.dup
+    @log.each { |hash| puts "#{hash[:entry_station]} to #{hash[:exit_station]}"}
   end
 
-  private
-
   def current_journey
-    @log << {entry_station: @journey.entry_station, exit_station: @journey.exit_station}
+    @current_journey ||= Journey.new
   end
 
 end
