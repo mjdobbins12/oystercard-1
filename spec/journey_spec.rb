@@ -2,13 +2,17 @@ require 'journey'
 
 describe Journey do
   let(:journey_a) { Journey.new }
-  let(:entry_station) { double :entry_station }
-  let(:exit_station) { double :exit_station }
+  let(:entry_station) { Station.new }
+  let(:exit_station) { Station.new }
+  let(:name) {double :name}
+  let(:zone) {1}
 
   describe "#fare" do
-    it "charges minimum fare for a complete journey" do
-      journey_a.entry_station = entry_station
-      journey_a.exit_station = exit_station
+    it "charges relevant fare for a complete journey" do
+      journey_a.entry_station.name = name
+      journey_a.exit_station.name = name
+      journey_a.entry_station.zone = zone
+      journey_a.exit_station.zone = zone
       expect(journey_a.fare).to eq(1)
     end
 

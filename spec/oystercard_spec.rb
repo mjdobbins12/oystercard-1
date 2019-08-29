@@ -31,7 +31,7 @@ describe Oystercard do
     end
 
     it "requires a minimum balance" do
-      expect{ subject.touch_in(shoreditch) }.to raise_error("Insufficient funds")
+      expect{ subject.touch_in(shoreditch,2) }.to raise_error("Insufficient funds")
     end
   end
 
@@ -39,11 +39,11 @@ describe Oystercard do
     context "card has been topped up" do
       before(:each) do
         subject.top_up(17)
-        subject.touch_in(shoreditch)
+        subject.touch_in(shoreditch,1)
       end
 
       it 'expects the balance to reduce by the calculated fare on touch out' do
-        expect{ subject.touch_out(clapham) }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
+        expect{ subject.touch_out(clapham,1) }.to change{ subject.balance }.by(-Oystercard::MINIMUM)
       end
 
     end

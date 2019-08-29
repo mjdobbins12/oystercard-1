@@ -17,13 +17,13 @@ class Oystercard
     @balance += money
   end
 
-  def touch_in(station)
+  def touch_in(station,zone)
     fail "Insufficient funds" unless @balance >= MINIMUM
-    @journey_log.start(station)
+    @journey_log.start(station,zone)
   end
 
-  def touch_out(station)
-    @journey_log.finish(station)
+  def touch_out(station,zone)
+    @journey_log.finish(station,zone)
     deduct
   end
 

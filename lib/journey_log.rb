@@ -7,15 +7,17 @@ class JourneyLog
     @log = []
   end
 
-  def start(entry_station)
+  def start(entry_station, zone)
     @current_journey = Journey.new
-    @current_journey.entry_station = entry_station
+    @current_journey.entry_station.name = entry_station
+    @current_journey.entry_station.zone = zone
   end
 
-  def finish(exit_station)
+  def finish(exit_station, zone)
     current_journey
-    @current_journey.exit_station = exit_station
-    @log << {entry_station: @current_journey.entry_station, exit_station: @current_journey.exit_station}
+    @current_journey.exit_station.name = exit_station
+    @current_journey.exit_station.zone = zone
+    @log << {entry_station: @current_journey.entry_station.name, exit_station: @current_journey.exit_station.name}
   end
 
   def journeys
